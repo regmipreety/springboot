@@ -13,17 +13,20 @@ public class DemoController {
     private Coach myCoach;
 
     // define a constructor for dependency injection
-//    @Autowired
-//    public DemoController (Coach theCoach){
-//        myCoach = theCoach;
-//    }
-
-    /* Adding dependency injection via setter
-    * it is used for optional dependency injection*/
     @Autowired
-    public void setMyCoach (@Qualifier("baseballCoach") Coach theCoach){
+    public DemoController (@Qualifier("swimCoach") Coach theCoach){
+        System.out.println("In constructor: "+ getClass().getSimpleName());
         myCoach = theCoach;
     }
+
+    /* Adding dependency injection via setter
+    * it is used for optional dependency injection*
+    Qualifier annotation takes over Primary annotation to define which component to use
+    * */
+//    @Autowired
+//    public void setMyCoach (@Qualifier("baseballCoach") Coach theCoach){
+//        myCoach = theCoach;
+//    }
 
     @GetMapping("/dailyworkouts")
     public String getDailyWorkout() {

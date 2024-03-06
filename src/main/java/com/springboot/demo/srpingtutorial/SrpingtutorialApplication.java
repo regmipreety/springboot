@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(
 		scanBasePackages = {"com.springboot.demo.srpingtutorial.springcoredemo",
-							"com.springboot.demo.srpingtutorial.util"
+							"com.springboot.demo.srpingtutorial.util",
+							"com.springboot.demo.srpingtutorial.config"
 
 		}
 )
