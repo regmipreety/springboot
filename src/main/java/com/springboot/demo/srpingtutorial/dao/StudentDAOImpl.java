@@ -2,9 +2,12 @@ package com.springboot.demo.srpingtutorial.dao;
 
 import com.springboot.demo.srpingtutorial.entity.Student;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 /*Supports component scanning
@@ -29,5 +32,12 @@ public class StudentDAOImpl implements StudentDAO{
     @Override
     public Student findById(Integer id) {
         return entityManager.find(Student.class, id);
+    }
+
+    @Override
+    public List<Student> findByLastName(String theLastName) {
+        TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student WHERE lastName= :theData", Student.class);
+        theQuery.setParameter("theData", theLastName);
+        return theQuery.getResultList();
     }
 }

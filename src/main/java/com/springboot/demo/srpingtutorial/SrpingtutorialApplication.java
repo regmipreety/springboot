@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 
 @SpringBootApplication(
 		scanBasePackages = {"com.springboot.demo.srpingtutorial.springcoredemo",
@@ -44,12 +46,20 @@ public class SrpingtutorialApplication {
 		System.out.println("Saved student. Generated id: "+ tempStudent.getId());
 
 		this.readStudent(studentDAO, tempStudent);
+		this.findByLastName(studentDAO);
 	}
 
 	private void readStudent(StudentDAO studentDAO, Student tempStudent) {
 		System.out.println("\nRetrieving student with id"+ tempStudent.getId());
 		Student result = studentDAO.findById(tempStudent.getId());
 		System.out.println("Found the student: "+ result);
+	}
+
+	private void findByLastName(StudentDAO studentDAO){
+		System.out.println("\nRetrieving student by last name Doe");
+		List<Student> students = studentDAO.findByLastName("Doe");
+		System.out.println(students);
+
 	}
 
 }
