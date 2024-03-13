@@ -28,8 +28,24 @@ public class SrpingtutorialApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner-> {
-			createStudent(studentDAO);
+			//createStudent(studentDAO);
+			updateStudent(studentDAO);
 		};
+	}
+
+	private void updateStudent(StudentDAO studentDAO) {
+		//retrieve student based on the id
+		int studentId = 1;
+		System.out.println("Getting student with id:"+ studentId);
+		Student theStudent = studentDAO.findById(1);
+
+		//change first name
+		System.out.println("updating student...");
+		theStudent.setFirstName("Preety");
+		studentDAO.update(theStudent);
+
+		//display updated student
+		System.out.println("updated student: "+ theStudent);
 	}
 
 	private void createStudent(StudentDAO studentDAO) {
@@ -58,7 +74,9 @@ public class SrpingtutorialApplication {
 	private void findByLastName(StudentDAO studentDAO){
 		System.out.println("\nRetrieving student by last name Doe");
 		List<Student> students = studentDAO.findByLastName("Doe");
-		System.out.println(students);
+		for (Student tempStudent: students) {
+			System.out.println(tempStudent);
+		}
 
 	}
 

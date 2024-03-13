@@ -13,7 +13,7 @@ import java.util.List;
 /*Supports component scanning
 * translates JDBC exceptions
 **/
-public class StudentDAOImpl implements StudentDAO{
+public class StudentDAOImpl implements StudentDAO {
 
     //define field for entity manager
     private EntityManager entityManager;
@@ -36,8 +36,17 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public List<Student> findByLastName(String theLastName) {
-        TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student WHERE lastName= :theData", Student.class);
+        TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student WHERE lastName= :theData order by firstName asc", Student.class);
+        //Note: Student is not the name of the database table but the name of the JPA entity class.
+        // All JPQL syntax is based on entity name and entity fields
         theQuery.setParameter("theData", theLastName);
+        //return query results;
         return theQuery.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public void update(Student theStudent) {
+        entityManager.merge(theStudent);
     }
 }
