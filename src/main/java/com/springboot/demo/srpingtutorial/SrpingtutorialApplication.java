@@ -29,15 +29,22 @@ public class SrpingtutorialApplication {
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner-> {
 			//createStudent(studentDAO);
-			updateStudent(studentDAO);
+			//updateStudent(studentDAO);
+			deleteAllStudent(studentDAO);
 		};
+	}
+
+	private void deleteAllStudent(StudentDAO studentDAO) {
+		System.out.println("Deleting all students");
+		int rows = studentDAO.deleteAll();
+		System.out.println("Deleted row count:"+ rows);
 	}
 
 	private void updateStudent(StudentDAO studentDAO) {
 		//retrieve student based on the id
 		int studentId = 1;
 		System.out.println("Getting student with id:"+ studentId);
-		Student theStudent = studentDAO.findById(1);
+		Student theStudent = studentDAO.findById(studentId);
 
 		//change first name
 		System.out.println("updating student...");
@@ -46,6 +53,16 @@ public class SrpingtutorialApplication {
 
 		//display updated student
 		System.out.println("updated student: "+ theStudent);
+		this.deleteStudent(studentDAO);
+	}
+
+	private void deleteStudent(StudentDAO studentDAO){
+		//get the detail to be deleted
+		int studentId = 2;
+
+		//perform delete
+		studentDAO.deleteStudentById(studentId);
+		System.out.println("Student detail has been deleted"+ studentId);
 	}
 
 	private void createStudent(StudentDAO studentDAO) {
@@ -79,5 +96,6 @@ public class SrpingtutorialApplication {
 		}
 
 	}
+
 
 }
